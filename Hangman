@@ -1,0 +1,98 @@
+import os
+import random
+
+HANGMANPICS = ['''
+  +---+
+  |   |
+      |
+      |
+      |
+      |
+=========''', '''
+  +---+
+  |   |
+  O   |
+      |
+      |
+      |
+=========''', '''
+  +---+
+  |   |
+  O   |
+  |   |
+      |
+      |
+=========''', '''
+  +---+
+  |   |
+  O   |
+ /|   |
+      |
+      |
+=========''', '''
+  +---+
+  |   |
+  O   |
+ /|\  |
+      |
+      |
+=========''', '''
+  +---+
+  |   |
+  O   |
+ /|\  |
+ /    |
+      |
+=========''', '''
+  +---+
+  |   |
+  O   |
+ /|\  |
+ / \  |
+      |
+=========''']
+
+DB = [
+    "JESUS",
+    "MATEO",
+    "MARCOS",
+    "LUCAS",
+    "JUAN",
+    "DIOS"
+]
+
+def run():
+    word = random.choice(DB)
+    spaces = ["_"] * len(word)
+    attemps = 6
+    print(DB)
+    print("Estas son las palabras posibles")
+
+    while True:
+        os.system('cls')
+        for character in spaces:
+            print(character, end=" ")
+        print(HANGMANPICS[attemps])
+        letter = input("Elige una letra:").upper()
+
+        found = False
+        for idx, character in enumerate(word):
+            if character == letter:
+                spaces[idx] = letter
+                found = True
+
+        if not found:
+            attemps -= 1
+
+        if "_" not in spaces:
+            os.system('cls')
+            print("Ganaste")
+            break
+
+        if attemps == 0:
+            os.system('cls')
+            print("Perdiste")
+            break
+
+if __name__ == '__main__':
+    run()
